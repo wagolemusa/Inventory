@@ -17,21 +17,3 @@ module.exports = {
 };
 
 
-// const knex = require('knex')
-
-// module.exports = knex({
-//   development: {
-//     client: 'postgresql',
-//     client: 'pg',
-//     connection: {
-//       host: 'db',
-//       user: process.env.POSTGRES_USER,
-//       password: process.env.POSTGRES_PASSWORD,
-//       database: process.env.POSTGRES_DB,
-//     },
-//     migrations: {
-//         directory: './db/migrations',
-//       },
-//   }
-// })
-
