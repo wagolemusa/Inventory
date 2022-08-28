@@ -1,5 +1,4 @@
 const knex = require('knex')
-
 const tableNames = require('../../src/constants/tableNames.js')
 
 
@@ -36,8 +35,6 @@ function url(table, columnName){
 function email(table, columnName){
   return table.string(columnName, 254);
 }
-
-
 
 /**
  * @param {import('knex')} knex
@@ -83,7 +80,6 @@ exports.up = async(knex) => {
     references(table, 'country');
   });
 
-
   // table for manufacturer 
   await knex.schema.createTable(tableNames.manufacturer, (table) => {
     table.increments().notNullable();
@@ -96,7 +92,6 @@ exports.up = async(knex) => {
   })
 
 };
-
 
 exports.down = async(knex) => {
   await Promise.all([
