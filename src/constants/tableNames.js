@@ -1,10 +1,12 @@
 module.exports = {
-    user: 'user',
-    item_type: 'item_type',
-    state: 'state',
-    country: 'country',
-    shape: 'shape',
-    location: 'location',
+    employee: 'employee',
+    role: 'role',
+    items: 'items',
+    shop: 'shop',
+    order: 'order',
     address: 'address',
-    manufacturer: 'manufacturer',
+    customer: 'customer',
+    points: 'points',
+    payment: 'payment',
+    tracker: 'Tracker'
 };
