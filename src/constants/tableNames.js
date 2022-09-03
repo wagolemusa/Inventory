@@ -1,5 +1,6 @@
 module.exports = {
     employee: 'employee',
+    distrit:'distrit',
     role: 'role',
     items: 'items',
     shop: 'shop',
