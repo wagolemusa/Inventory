@@ -1,40 +1,15 @@
 const knex = require('knex')
 const tableNames = require('../../src/constants/tableNames.js')
 
+// importing helpers
+const {
+  addDefaultColumns,
+  createNameTable,
+  references,
+  email,
+  url
+} = require('../../src/lib/tableUlities')
 
-function addDefaultColumns(table) {
-  table.timestamps(false, true);
-  table.datetime('deleted_at');
-}
-
-// helper function which create tables with similar column names 
-function createNameTable(knex, table_name) {
-  return knex.schema.createTable(table_name, (table) => {
-    table.increments().notNullable();
-    table.string('name').notNullable().unique();
-    addDefaultColumns(table)
-  })
-}
-
-// helper function for references
-function references(table, tableNames) {
-  table
-    .integer(`${tableNames}_id`)
-    .unsigned()
-    .references('id')
-    .inTable(tableNames)
-    .onDelete('cascade');
-}
-
-// helper function for images
-function url(table, columnName) {
-  table.string(columnName, 2000)
-}
-
-// helper function for emails
-function email(table, columnName) {
-  return table.string(columnName, 254);
-}
 
 /**
  * @param {import('knex')} knex
@@ -48,7 +23,10 @@ exports.up = async (knex) => {
       table.string('name').notNullable();
       table.integer('item_size').notNullable();
       table.integer('item_price').notNullable();
+      table.integer('quantiy').notNullable();
+      table.string('qrcode');
       table.integer('whole_price').notNullable();
+      references(table, 'employee');
       addDefaultColumns(table);
 
     }),
