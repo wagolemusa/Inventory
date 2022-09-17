@@ -14,76 +14,77 @@ const {
 /**
  * @param {import('knex')} knex
  */
+ 
+  exports.up = async (knex) => {
+    // table for users
+    await Promise.all([
 
-exports.up = async (knex) => {
-  // table for users
-  await Promise.all([
-    knex.schema.createTable(tableNames.items, (table) => {
-      table.increments().notNullable();
-      table.string('name').notNullable();
-      table.integer('item_size').notNullable();
-      table.integer('item_price').notNullable();
-      table.integer('quantiy').notNullable();
-      table.string('qrcode');
-      table.integer('whole_price').notNullable();
-      references(table, 'employee');
-      addDefaultColumns(table);
+      knex.schema.createTable(tableNames.items, (table) => {
+        table.increments().notNullable();
+        table.string('name').notNullable();
+        table.integer('item_size').notNullable();
+        table.integer('item_price').notNullable();
+        table.integer('quantiy').notNullable();
+        table.string('qrcode');
+        table.integer('whole_price').notNullable();
+        references(table, 'employee');
+        addDefaultColumns(table);
 
+      }),
+
+      // table for role
+      createNameTable(knex, tableNames.role),
+
+      // table for distrits
+      createNameTable(knex, tableNames.distrit),
+
+        // table for customer 
+      knex.schema.createTable(tableNames.customer, (table) => {
+        table.increments().notNullable();
+        table.string('firstname').notNullable();
+        table.string('lastname').notNullable();
+        table.string('business_name', 1000);
+        email(table, 'email');
+        table.integer('phone').notNullable();
+        table.string('password').notNullable();
+        addDefaultColumns(table);
+      }),
+
+    ]);
+
+      // table for address
+    await knex.schema.createTable(tableNames.address, (table) => {
+          table.increments().notNullable();
+          table.string('town', 50).notNullable();
+          table.string('zipcode', 15).notNullable();
+          table.float('latitude').notNullable();
+          table.float('longitude').notNullable();
+          references(table, 'distrit')
+          addDefaultColumns(table);
+    
     }),
 
-    // table for role
-    createNameTable(knex, tableNames.role),
-
-    // table for distrits
-    createNameTable(knex, tableNames.distrit),
-
-      // table for customer 
-    knex.schema.createTable(tableNames.customer, (table) => {
+    await knex.schema.createTable(tableNames.employee, (table) => {
       table.increments().notNullable();
       table.string('firstname').notNullable();
       table.string('lastname').notNullable();
-      table.string('business_name', 1000);
-      email(table, 'email');
-      table.integer('phone').notNullable();
+      email(table, 'email', 254).notNullable().unique();
+      table.bigInteger('phone').notNullable();
+      table.bigInteger('idnumber').notNullable();
+      table.string('sex').notNullable();
       table.string('password').notNullable();
+      references(table, 'address');
       addDefaultColumns(table);
     }),
-
-  ]);
-
-      // table for address
-  await knex.schema.createTable(tableNames.address, (table) => {
-        table.increments().notNullable();
-        table.string('town', 50).notNullable();
-        table.string('zipcode', 15).notNullable();
-        table.float('latitude').notNullable();
-        table.float('longitude').notNullable();
-        references(table, 'distrit')
-        addDefaultColumns(table);
-  
-  }),
-
-  await knex.schema.createTable(tableNames.employee, (table) => {
-    table.increments().notNullable();
-    table.string('firstname').notNullable();
-    table.string('lastname').notNullable();
-    email(table, 'email', 254).notNullable().unique();
-    table.bigInteger('phone').notNullable();
-    table.bigInteger('idnumber').notNullable();
-    table.string('sex').notNullable();
-    table.string('password').notNullable();
-    references(table, 'address')
-    addDefaultColumns(table);
-  }),
 
 
     // table for orders
     await knex.schema.createTable(tableNames.order, (table) => {
       table.increments().notNullable();
       table.integer('quantity').notNullable().unique();
-      table.string('status').notNullable()
-      references(table, 'items')
-      references(table, 'employee')
+      table.string('status').notNullable();
+      references(table, 'items');
+      references(table, 'employee');
       addDefaultColumns(table);
     }),
 

@@ -1,7 +1,7 @@
 const crypto = require('crypto');
 const bcrypt = require('bcrypt');
 const Knex = require('knex');
-const orderTable = require('../../src/constants/orderTable');
+const orderTable = require('../../src/constants/orderTable')
 const tableNames = require('../../src/constants/tableNames');
 const distrit = require('../../src/constants/district')
 
