@@ -18,7 +18,6 @@ const {
   exports.up = async (knex) => {
     // table for users
     await Promise.all([
-
       knex.schema.createTable(tableNames.items, (table) => {
         table.increments().notNullable();
         table.string('name').notNullable();
@@ -27,7 +26,6 @@ const {
         table.integer('quantiy').notNullable();
         table.string('qrcode');
         table.integer('whole_price').notNullable();
-        references(table, 'employee');
         addDefaultColumns(table);
 
       }),
