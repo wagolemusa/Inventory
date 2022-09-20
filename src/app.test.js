@@ -1,7 +1,7 @@
 const supertest = require('supertest');
 
 const app = require('./app');
-const { items } = require('./constants/tableNames');
+const project = require('./constants/projects')
 
 describe('GET HOME ROUTES', () => {
     it('should respond with a message', async() => {
@@ -9,6 +9,6 @@ describe('GET HOME ROUTES', () => {
             .get('/')
             .expect('Content-Type', /json/)
             .expect(200);
-        expect(response.body.message).toEqual('Korgas Inventory System');
+        expect(response.body.message).toEqual(project.message);
     })
 })
