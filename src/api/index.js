@@ -1,6 +1,8 @@
 const express = require('express')
 const states = require('./states/state.routes')
 const project = require('../constants/projects')
+const users = require('./users/users.routes')
+const auth = require('./auth/auth.routes')
 
 const router =  express.Router();
 
@@ -11,5 +13,7 @@ router.get('/', (req, res) => {
 })
 
 router.use('/states', states); 
+router.use('/users', users);
+router.use('/auth', auth);
 
 module.exports = router;
