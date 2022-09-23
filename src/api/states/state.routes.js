@@ -10,14 +10,12 @@ router.get('/',  async (req, res) => {
     res.json(states)
 })
 
+
 // Get district by Id
 router.get('/:id', async(req, res, next) => {
-
     const { id } = req.params
-
     try {
         const state = await queries.get(parseInt(id, 10) || 0)
-
         if(state){
             return res.json(state);
         }
@@ -25,6 +23,6 @@ router.get('/:id', async(req, res, next) => {
     }catch(error){
         return next(error)
     }
-
 })
+
 module.exports = router;

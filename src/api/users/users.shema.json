@@ -1,0 +1,80 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "type": "object",
+    "default": {},
+    "title": "Employee",
+    "required": [
+        "firstname",
+        "lastname",
+        "email",
+        "phone",
+        "idnumber",
+        "sex",
+        "password "
+    ],
+    "properties": {
+        "id": {
+            "type": "integer",
+            "title": "The database ID for employees"
+        },
+        "firstname": {
+            "type": "string",
+            "title": "The employee firstname",
+            "examples": [
+                "refuge"
+            ]
+        },
+        "lastname": {
+            "type": "string",
+            "title": "The employee lastname",
+            "examples": [
+                "wise"
+            ]
+        },
+        "email": {
+            "type": "string",
+            "title": "The users email must be unique",
+            "examples": [
+                "homiemusa@gmail.com"
+            ]
+        },
+        "phone": {
+            "type": "string",
+            "title": "The employee phone",
+            "examples": [
+                "725696042"
+            ]
+        },
+        "idnumber": {
+            "type": "string",
+            "title": "The  employee idnumber",
+            "examples": [
+                "222000222"
+            ]
+        },
+        "sex": {
+            "type": "string",
+            "title": "The employee sex",
+            "examples": [
+                "man"
+            ]
+        },
+        "password": {
+            "type": "string",
+            "title": "The employee hashed password",
+            "examples": [
+                "password"
+            ]
+        },
+        "created_at": {
+            "type": "string",
+            "default": "",
+            "title": "The creation date of the employee"
+        },
+        "updated_at": {
+            "type": "string",
+            "default": "",
+            "title": "The employee updated date"
+        }
+    }
+}
