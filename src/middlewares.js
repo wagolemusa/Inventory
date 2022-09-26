@@ -1,3 +1,12 @@
+const errorTypes = {
+    ValidationError: 422,
+    UniqueViolationError: 409
+};
+
+const errorMessages = {
+    UniqueViolationError: 'Address Already exists',
+
+}
 
 function notFound(req, res, next){
     const error = new Error(`Not Found - ${req.originalUrl}`)
@@ -6,11 +15,14 @@ function notFound(req, res, next){
 }
 
 function errorHandler(error, req, res, next) {
-    const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
+    const statusCode = res.statusCode === 200 
+        ?(errorTypes[error.name] ||  500) 
+         : res.statusCode;
     res.status(statusCode);
+
     res.json({
         status: statusCode,
-        message: error.message,
+        message: errorMessages[error.name] || error.message,
         stack: process.env.NODE_ENV === 'production' ? 'error' : error.stack,
         errors: error.errors || undefined
     })

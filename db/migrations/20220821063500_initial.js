@@ -55,14 +55,20 @@ const {
           table.increments().notNullable();
           table.string('town', 50).notNullable();
           table.string('zipcode', 15).notNullable();
-          table.float('latitude').notNullable();
-          table.float('longitude').notNullable();
+          table.double('latitude').notNullable();
+          table.double('longitude').notNullable();
           references(table, 'distrit')
           addDefaultColumns(table);
+          table.unique([
+            'town',
+            'zipcode',
+            'latitude',
+            'longitude',
+          ])
     
     }),
 
-    await knex.schema.createTable(tableNames.employee, (table) => {
+    await knex.schema.createTable(tableNames.employee, (table) => { 
       table.increments().notNullable();
       table.string('firstname').notNullable();
       table.string('lastname').notNullable();
