@@ -97,8 +97,6 @@ const {
     await knex.schema.createTable(tableNames.shop, (table) => {
       table.increments().notNullable();
       table.string('name').notNullable();
-      table.float('latitude').notNullable();
-      table.float('longitude').notNullable();
       references(table, 'address');
       references(table, 'employee');
       addDefaultColumns(table);
