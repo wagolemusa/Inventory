@@ -7,68 +7,45 @@ const {
   createNameTable,
   references,
   email,
-  url
 } = require('../../src/lib/tableUlities')
 
 
 /**
  * @param {import('knex')} knex
  */
- 
-  exports.up = async (knex) => {
-    // table for users
-    await Promise.all([
-      knex.schema.createTable(tableNames.items, (table) => {
-        table.increments().notNullable();
-        table.string('name').notNullable();
-        table.integer('item_size').notNullable();
-        table.integer('item_price').notNullable();
-        table.integer('quantiy').notNullable();
-        table.string('qrcode');
-        table.integer('whole_price').notNullable();
-        addDefaultColumns(table);
 
-      }),
+exports.up = async (knex) => {
+  // table for users
+  await Promise.all([
 
-      // table for role
-      createNameTable(knex, tableNames.role),
+    // table for role
+    createNameTable(knex, tableNames.role),
 
-      // table for distrits
-      createNameTable(knex, tableNames.distrit),
+    // table for distrits
+    createNameTable(knex, tableNames.distrit),
+    // table for customer 
 
-        // table for customer 
-      knex.schema.createTable(tableNames.customer, (table) => {
-        table.increments().notNullable();
-        table.string('firstname').notNullable();
-        table.string('lastname').notNullable();
-        table.string('business_name', 1000);
-        email(table, 'email');
-        table.integer('phone').notNullable();
-        table.string('password').notNullable();
-        addDefaultColumns(table);
-      }),
+  ]);
 
-    ]);
+  // table for address
+  await knex.schema.createTable(tableNames.address, (table) => {
+    table.increments().notNullable();
+    table.string('town', 50).notNullable();
+    table.string('zipcode', 15).notNullable();
+    table.double('latitude').notNullable();
+    table.double('longitude').notNullable();
+    references(table, 'distrit')
+    addDefaultColumns(table);
+    table.unique([
+      'town',
+      'zipcode',
+      'latitude',
+      'longitude',
+    ])
 
-      // table for address
-    await knex.schema.createTable(tableNames.address, (table) => {
-          table.increments().notNullable();
-          table.string('town', 50).notNullable();
-          table.string('zipcode', 15).notNullable();
-          table.double('latitude').notNullable();
-          table.double('longitude').notNullable();
-          references(table, 'distrit')
-          addDefaultColumns(table);
-          table.unique([
-            'town',
-            'zipcode',
-            'latitude',
-            'longitude',
-          ])
-    
-    }),
+  }),
 
-    await knex.schema.createTable(tableNames.employee, (table) => { 
+    await knex.schema.createTable(tableNames.employee, (table) => {
       table.increments().notNullable();
       table.string('firstname').notNullable();
       table.string('lastname').notNullable();
@@ -81,6 +58,18 @@ const {
       addDefaultColumns(table);
     }),
 
+    await knex.schema.createTable(tableNames.items, (table) => {
+      table.increments().notNullable();
+      table.string('name').notNullable();
+      table.integer('item_size').notNullable();
+      table.integer('item_price').notNullable();
+      table.integer('quantiy').notNullable();
+      table.string('qrcode');
+      table.integer('whole_price').notNullable();
+      references(table, 'employee')
+      addDefaultColumns(table);
+
+    }),
 
     // table for orders
     await knex.schema.createTable(tableNames.order, (table) => {
@@ -88,10 +77,20 @@ const {
       table.integer('quantity').notNullable().unique();
       table.string('status').notNullable();
       references(table, 'items');
-      references(table, 'employee');
+      references(table, 'address');
       addDefaultColumns(table);
     }),
 
+    await knex.schema.createTable(tableNames.customer, (table) => {
+      table.increments().notNullable();
+      table.string('firstname').notNullable();
+      table.string('lastname').notNullable();
+      table.string('business_name', 1000);
+      email(table, 'email');
+      table.integer('phone').notNullable();
+      references(table, 'address');
+      addDefaultColumns(table);
+    }),
 
     // creating shops
     await knex.schema.createTable(tableNames.shop, (table) => {
@@ -122,8 +121,6 @@ const {
     addDefaultColumns(table);
   })
 
-
-
   // tracker tables
   await knex.schema.createTable(tableNames.tracker, (table) => {
     table.increments().notNullable();
@@ -137,16 +134,16 @@ const {
 
 exports.down = async (knex) => {
   await Promise.all([
-    tableNames.customer,
-    tableNames.shop,
     tableNames.role,
+    tableNames.shop,
     tableNames.points,
     tableNames.payment,
     tableNames.tracker,
+    tableNames.customer,
+    tableNames.address,
     tableNames.order,
     tableNames.items,
     tableNames.employee,
-    tableNames.address,
     tableNames.distrit
   ].map((tableNames) => knex.schema.dropTable(tableNames)));
 

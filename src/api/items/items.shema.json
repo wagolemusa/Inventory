@@ -1,0 +1,39 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "type": "object",
+    "default": {},
+    "title": "Address",
+    "required": [
+        "town",
+        "zipcode",
+        "latitude",
+        "longitude",
+        "district_id"
+    ],
+    "properties": {
+        "id": {
+            "type": "integer",
+            "title": "The database ID for Address"
+        },
+        "town": {
+            "type": "string",
+            "title": "The Address town"
+        },
+        "zipcode": {
+            "type": "string",
+            "title": "The Address zipcode"
+        },
+        "latitude": {
+            "type": "string",
+            "title": "The Address latitude"
+        },
+        "longitude": {
+            "type": "number",
+            "title": "The Address longitude"
+        },
+        "district_id": {
+            "type": "number",
+            "title": "The employee district_id"
+        }
+    }
+}
