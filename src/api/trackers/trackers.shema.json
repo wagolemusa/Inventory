@@ -1,0 +1,29 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "type": "object",
+    "default": {},
+    "title": "Tracker",
+    "required": [
+        "tracker_name",
+        "number_plate",
+        "employee_id"
+    ],
+    "properties": {
+        "id": {
+            "type": "integer",
+            "title": "The database ID for Points"
+        },
+        "tracker_name": {
+            "type": "string",
+            "title": "The Tracker name"
+        },
+        "number_plate": {
+            "type": "string",
+            "title": "The Tracker number plate"
+        },
+        "employee_id": {
+            "type": "number",
+            "title": "The Employee ID"
+        }
+    }
+}

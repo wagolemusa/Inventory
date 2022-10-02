@@ -1,0 +1,29 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "type": "object",
+    "default": {},
+    "title": "Payments",
+    "required": [
+        "amount_total",
+        "phone",
+        "payment_status"
+    ],
+    "properties": {
+        "id": {
+            "type": "integer",
+            "title": "The database ID for Points"
+        },
+        "amount_total": {
+            "type": "number",
+            "title": "The total amout for Payments"
+        },
+        "phone": {
+            "type": "number",
+            "title": "The phone number for Payments"
+        },
+        "payment_status": {
+            "type": "number",
+            "title": "The payments status for Payments like cash or aritel money"
+        }
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "type": "object",
+    "default": {},
+    "title": "Orders",
+    "required": [
+        "quantity",
+        "total"
+    ],
+    "properties": {
+        "id": {
+            "type": "integer",
+            "title": "The database ID for Address"
+        },
+        "town": {
+            "type": "number",
+            "title": "The quantity"
+        },
+    
+        "longitude": {
+            "type": "number",
+            "title": "total"
+        }
+    }
+}

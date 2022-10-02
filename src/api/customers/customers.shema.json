@@ -1,0 +1,40 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "type": "object",
+    "default": {},
+    "title": "Customers",
+    "required": [
+        "firstname",
+        "lastname",
+        "business_name",
+        "email",
+        "phone"
+     
+    ],
+    "properties": {
+        "id": {
+            "type": "integer",
+            "title": "The database ID for Customer"
+        },
+        "firstname": {
+            "type": "firstname",
+            "title": "The firstname for Customer"
+        },
+        "lastname": {
+            "type": "lastname",
+            "title": "The lastname for Customer"
+        },
+        "business_name": {
+            "type": "string",
+            "title": "The business_name for Customer"
+        },
+        "email": {
+            "type": "string",
+            "title": "The email for Customer"
+        },
+        "phone": {
+            "type": "number",
+            "title": "The phone number for Customer"
+        }
+    }
+}

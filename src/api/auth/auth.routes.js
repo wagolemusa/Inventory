@@ -141,7 +141,7 @@ router.post('/signin', async(req, res, next) =>{
         const payload = {
             id: user.id,
             user: user.lastname,
-            email
+            // roles: ['admin', 'staff']
         }
         const token = await jwt.sign(payload)
         res.json({

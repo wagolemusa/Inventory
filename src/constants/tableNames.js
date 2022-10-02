@@ -1,13 +1,17 @@
 module.exports = {
     employee: 'employee',
     distrit:'distrit',
+    cart: "cart",
     role: 'role',
     items: 'items',
-    shop: 'shop',
-    order: 'order',
+    shops: 'shops',
+    orders: 'orders',
     address: 'address',
-    customer: 'customer',
+    customers: 'customers',
+    supervisor: 'supervisor',
     points: 'points',
-    payment: 'payment',
-    tracker: 'Tracker'
+    payments: 'payments',
+    trackers: 'Trackers',
+    takegas: 'takegas',
+    stock: 'stock'
 };

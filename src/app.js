@@ -5,12 +5,14 @@ const helmet = require('helmet');
 const middlewares = require('./middlewares.js')
 const api = require('./api')
 const project = require('./constants/projects')
+const authMiddlewares = require('./api/auth/auth.middlewires')
 const app  = express();
 
 app.use(morgan('tiny'));
 app.use(compression());
 app.use(helmet());
 app.use(express.json());
+app.use(authMiddlewares.setUserFromTokenIfValid);
 
 
 app.get('/', (req, res) => {

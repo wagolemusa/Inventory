@@ -11,4 +11,12 @@ router.get('/', async(req, res) =>{
     res.json(users)
 });
 
+router.get('/one', async(req, res) =>{
+    const users = await  User
+        .query()
+        .select('id', 'firstname', 'lastname', 'email', 'phone', 'idnumber', 'sex', 'created_at', 'updated_at')
+        .where('id', req.user.id)
+        .where('deleted_at', null)
+    res.json(users)
+});
 module.exports = router;
