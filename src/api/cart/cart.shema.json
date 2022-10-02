@@ -1,0 +1,36 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "type": "object",
+    "default": {},
+    "title": "Cart",
+    "required": [
+        "phone",
+        "quantity",
+        "totalcart",
+        "items_id",
+        "employee_id"
+    ],
+    "properties": {
+        "id": {
+            "type": "integer",
+            "title": "The database ID for Cart"
+        },
+        "phone": {
+            "type": "number",
+            "title": "The phone number"
+        },
+    
+        "quantity": {
+            "type": "number",
+            "title": "The quantity of the cart added"
+        },
+        "totalcart": {
+            "type": "number",
+            "title": "The quantity of the cart add"
+        },
+        "items_id": {
+            "type": "number",
+            "title": "The shop_id wher the cart was picked"
+        }
+    }
+}

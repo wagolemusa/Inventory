@@ -1,0 +1,34 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "type": "object",
+    "default": {},
+    "title": "Stock",
+    "required": [
+        "quantity",
+        "six_kgs",
+        "seven_kgs",
+        "fifteen_kgs"
+    ],
+    "properties": {
+        "id": {
+            "type": "integer",
+            "title": "The database ID for Takegas"
+        },
+        "quantity": {
+            "type": "number",
+            "title": "The total quantity for Takegas"
+        },
+        "six_kgs": {
+            "type": "number",
+            "title": "The quantity for six kgs"
+        },
+        "seven_kgs": {
+            "type": "number",
+            "title": "The quantity for seven kgs"
+        },
+        "fifteen_kgs": {
+            "type": "number",
+            "title": "The quantity for fifteen kgs"
+        }
+    }
+}

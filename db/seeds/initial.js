@@ -21,7 +21,7 @@ exports.seed = async (knex) => {
   );
 
 
-  const password  = crypto.randomBytes(15).toString('hex');
+  const password  = 'A' + crypto.randomBytes(15).toString('hex') + '?';
 
   const employee = {
     email: 'homiemusa@gmail.com',

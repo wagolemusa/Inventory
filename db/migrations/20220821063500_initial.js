@@ -54,6 +54,7 @@ exports.up = async (knex) => {
       table.bigInteger('idnumber').notNullable();
       table.string('sex').notNullable();
       table.string('password').notNullable();
+      references(table, 'role')
       references(table, 'address');
       addDefaultColumns(table);
     }),
@@ -62,26 +63,52 @@ exports.up = async (knex) => {
       table.increments().notNullable();
       table.string('name').notNullable();
       table.integer('item_size').notNullable();
-      table.integer('item_price').notNullable();
       table.integer('quantiy').notNullable();
       table.string('qrcode');
+      table.integer('retail_price').notNullable();
       table.integer('whole_price').notNullable();
       references(table, 'employee')
       addDefaultColumns(table);
 
     }),
 
+
     // table for orders
-    await knex.schema.createTable(tableNames.order, (table) => {
+    await knex.schema.createTable(tableNames.orders, (table) => {
       table.increments().notNullable();
       table.integer('quantity').notNullable().unique();
-      table.string('status').notNullable();
+      table.integer('total')
+      table.string('status')
       references(table, 'items');
-      references(table, 'address');
+      references(table, 'employee');
       addDefaultColumns(table);
     }),
 
-    await knex.schema.createTable(tableNames.customer, (table) => {
+  // table for payments
+  await knex.schema.createTable(tableNames.payments, (table) => {
+    table.increments().notNullable();
+    table.integer('amount_total').notNullable();
+    table.integer('phone').notNullable()
+    table.string('payment_status').notNullable()
+    table.string('status');
+    references(table, 'employee');
+    references(table, 'orders');
+    addDefaultColumns(table);
+  })
+
+    // table for cart
+    await knex.schema.createTable(tableNames.cart, (table) => {
+      table.increments().notNullable();
+      table.integer('quantity').notNullable().unique();
+      table.integer('price');
+      table.integer('totalcart')
+      references(table, 'items');
+      references(table, 'employee');
+      addDefaultColumns(table);
+    }),
+
+    // creating customers table
+    await knex.schema.createTable(tableNames.customers, (table) => {
       table.increments().notNullable();
       table.string('firstname').notNullable();
       table.string('lastname').notNullable();
@@ -93,7 +120,7 @@ exports.up = async (knex) => {
     }),
 
     // creating shops
-    await knex.schema.createTable(tableNames.shop, (table) => {
+    await knex.schema.createTable(tableNames.shops, (table) => {
       table.increments().notNullable();
       table.string('name').notNullable();
       references(table, 'address');
@@ -107,26 +134,43 @@ exports.up = async (knex) => {
     table.integer('phone').notNullable();
     table.integer('quantity').notNullable();
     table.integer('points').notNullable();
-    references(table, 'employee');
-    addDefaultColumns(table);
-  })
-
-  // table for payments
-  await knex.schema.createTable(tableNames.payment, (table) => {
-    table.increments().notNullable();
-    table.integer('amount').notNullable();
-    references(table, 'employee');
-    references(table, 'order');
-    table.string('status');
+    references(table, 'shops');
     addDefaultColumns(table);
   })
 
   // tracker tables
-  await knex.schema.createTable(tableNames.tracker, (table) => {
+  await knex.schema.createTable(tableNames.trackers, (table) => {
     table.increments().notNullable();
     table.string('tracker_name').notNullable();
     table.string('number_plate').notNullable();
     references(table, 'employee');
+    addDefaultColumns(table);
+  })
+
+  await knex.schema.createTable(tableNames.supervisor, (table) => {
+    table.increments().notNullable();
+    references(table, 'employee');
+    addDefaultColumns(table);
+  })
+
+
+  await knex.schema.createTable(tableNames.takegas, (table) => {
+    table.increments().notNullable();
+    table.integer('quantity').notNullable();
+    table.integer('six_kgs').notNullable();
+    table.integer('seven_kgs').notNullable();
+    table.integer('fifteen_kgs').notNullable();
+    references(table, 'supervisor');
+    addDefaultColumns(table);
+  })
+
+  await knex.schema.createTable(tableNames.stock, (table) => {
+    table.increments().notNullable()
+    table.integer('quantity').notNullable()
+    table.integer('six_kgs')
+    table.integer('seven_kgs')
+    table.integer('fifteen_kgs')
+    references(table, 'shops');
     addDefaultColumns(table);
   })
 
@@ -135,15 +179,19 @@ exports.up = async (knex) => {
 exports.down = async (knex) => {
   await Promise.all([
     tableNames.role,
-    tableNames.shop,
+    tableNames.shops,
+    tableNames.stock,
     tableNames.points,
-    tableNames.payment,
-    tableNames.tracker,
-    tableNames.customer,
-    tableNames.address,
-    tableNames.order,
+    tableNames.payments,
+    tableNames.trackers,
+    tableNames.cart,
+    tableNames.customers,
+    tableNames.orders,
     tableNames.items,
+    tableNames.takegas,
     tableNames.employee,
+    tableNames.supervisor,
+    tableNames.address,
     tableNames.distrit
   ].map((tableNames) => knex.schema.dropTable(tableNames)));
 

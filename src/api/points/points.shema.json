@@ -1,0 +1,35 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "type": "object",
+    "default": {},
+    "title": "Points",
+    "required": [
+        "phone",
+        "quantity",
+        "points",
+        "shop_id"
+    ],
+    "properties": {
+        "id": {
+            "type": "integer",
+            "title": "The database ID for Points"
+        },
+        "phone": {
+            "type": "number",
+            "title": "The phone number"
+        },
+    
+        "quantity": {
+            "type": "number",
+            "title": "The quantity of the gass taken"
+        },
+        "points": {
+            "type": "number",
+            "title": "The quantity of the gass taken"
+        },
+        "shop_id": {
+            "type": "number",
+            "title": "The shop_id wher the gass was picked"
+        }
+    }
+}

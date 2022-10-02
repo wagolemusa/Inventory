@@ -1,12 +1,12 @@
 const { Model } = require('objection');
 
 const tableNames = require('../../constants/tableNames')
-const schema = require('./items.schema.json')
+const schema = require('./points.shema.json')
 
 // Define model for employees
-class Item extends Model {
+class Point extends Model {
     static get tableName(){
-        return tableNames.items
+        return tableNames.points
     }
 
         // static get jsonSchema(){
@@ -14,6 +14,6 @@ class Item extends Model {
         // }
 }
 
-module.exports = Item;
+module.exports = Point;
 
 
