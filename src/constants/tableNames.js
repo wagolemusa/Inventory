@@ -8,10 +8,11 @@ module.exports = {
     orders: 'orders',
     address: 'address',
     customers: 'customers',
-    supervisor: 'supervisor',
     points: 'points',
     payments: 'payments',
-    trackers: 'Trackers',
-    takegas: 'takegas',
-    stock: 'stock'
+    trackers: 'trackers',
+    shipping: 'shipping',
+    stock: 'stock',
+    size: 'size',
+    category: 'category'
 };
