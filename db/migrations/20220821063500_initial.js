@@ -59,7 +59,6 @@ exports.up = async (knex) => {
       'latitude',
       'longitude',
     ])
-
   }),
  
     await knex.schema.createTable(tableNames.employee, (table) => {
@@ -79,16 +78,14 @@ exports.up = async (knex) => {
    
     await knex.schema.createTable(tableNames.items, (table) => {
       table.increments().notNullable();
-      table.integer('quantiy').notNullable();
       table.integer('retail_price').notNullable()
       table.integer('wholesale_price').notNullable()
-      table.string('qrcode');
+      table.string('serial_number');
       table.string('points')
       references(table, 'category');
       references(table, 'size');
       references(table, 'employee')
       addDefaultColumns(table);
-
     }),
 
 

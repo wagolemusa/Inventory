@@ -9,6 +9,7 @@ function verify(token) {
   });
 }
 
+
 function sign(payload) {
   return new Promise((resolve, reject) => {
     jwt.sign(
